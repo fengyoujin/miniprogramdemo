@@ -1,0 +1,161 @@
+<!--  -->
+
+<!-- 
+    数据绑定 
+-->
+<!-- 1.字符串 -->
+<view>{{msg}}</view>
+<!-- 2.数字类型 -->
+<view>{{num}}</view> 
+<!-- 3.bool类型 -->
+<view>{{isGirl}}</view>
+<!-- 4.object -->
+<view>{{person.age}}</view>
+<view>{{person.weight}}</view>
+<view>{{person.height}}</view>
+<view>{{person.name}}</view>
+<!-- 5.在标签属性中使用 -->
+<view data-num="{{person.weight}}">自定义属性</view>
+<!-- 6.使用bool类型充当属性 checked 
+        tips:字符串和花括号之间不能存在空格，会导致识别失败，如：
+            <checkboxchecked="    {{isChecked}}"></checkbox>
+-->
+<view>
+    <checkbox checked="{{isChecked}}"></checkbox>
+</view>
+
+<!-- 
+运算
+    1. 表达式
+        指一些简单的运算，数字运算，字符串拼接，逻辑运算、、、
+        - 数字运算
+        - 字符串拼接
+        - 三元表达式
+    2. 语句
+        复杂的代码段
+        - if else
+        - do wile
+        - for
+        - switch
+    3. 花括号中可以加入表达式但不能加语句
+-->
+<view>
+    {{1+1}}
+</view>
+<view>
+    {{'1'+'1'}}
+</view>
+<view>
+    {{11%2===0 ? '偶数':'奇数' }}
+</view>
+<!-- 
+    列表循环
+        1. wx:for="{{数组或对象}}"  wx:for-item="循环项的名称"  wx:for-index="循环项的索引"
+        2. wx:key="唯一的值" 用于提高列表渲染的性能
+            -wx:key 绑定一个普通的字符串的时候，那么这个字符串名称肯定是循环数组中的对象的唯一属性
+            -wx:key="*this" 就表示该数组是一个普通的数组 *this表示循环项
+                [1,2,3,4,5,6]
+                ['1','2','13']
+        3. 当出现数组的循环嵌套的时候尤其要注意以下绑定的名称不能重复
+            wx:for-item="item" wx:for-index="index"
+        4. 默认情况下可以不写
+            wx:for-item="item" wx:for-index="index"
+            小程序会把循环项的名称和索引定义为item和index
+            只有一层循环情况下就可以省略 wx:for-item="item" wx:for-index="index"
+    对象循环
+        1. wx:for="{{对象}}}" wx:for-index="对象的属性" wx:for-item="对象的值"
+        2. 循环对象的时候最好把item 和 index 的名称都修改一下
+            wx:for-index="key" wx:for-item="value"
+ -->
+<view>
+    <view wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+        索引: {{index}}
+        --
+        name: {{item.name}}
+    </view>
+</view>
+<!-- 省略 wx:for-item="item" wx:for-index="index" -->
+<view>
+    <view wx:for="{{list}}" wx:key="id">
+        索引: {{index}}
+        --
+        name: {{item.name}}
+    </view>
+</view>
+<view>
+    <view>对象循环</view>
+    <view wx:for="{{person}}" wx:for-index="key" wx:for-item="value" wx:key="*this">
+        属性: {{key}}
+        --
+        值: {{value}}
+    </view>
+</view>
+<!-- 
+    Block
+        1. 占位符标签
+        2. 写代码的时候可以看到标签存在
+        3. 页面渲染时，小程序会把它移除
+ -->
+ <view>
+    <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+        索引: {{index}}
+        --
+        name: {{item.name}}
+    </block>
+</view>
+<!-- 
+    条件渲染
+        1. wx:if="{{true/false}}"
+            1. if, else, if else
+            - wx:if
+            - wx:elif
+            - wx:else
+        2. hidden
+            1.  在标签上直接加入属性 hidden
+            2. hidden="{{true}}"
+        3. 什么场景下用哪个
+            1. 当标签不是频繁切换显示 优先使用 wx:if
+                通过移除的方式切换
+            2. 当标签频繁切换显示的时候 优先使用 hidden
+                通过添加样式的方式切换显示
+                hidden 属性不要和 display 一起使用
+                会被display覆盖，无法隐藏
+ -->
+<view>
+    <view>
+        条件渲染
+    </view>
+    <view wx:if="{{true}}">
+        显示
+    </view>
+    <view wx:if="{{false}}">
+        隐藏
+    </view>
+    <view wx:if="{{false}}">
+        1        
+    </view>
+    <view wx:elif="{{false}}">
+        2
+    </view>
+    <view wx:else>
+        3
+    </view>
+    <view hidden>
+        隐藏
+    </view>
+    <view hidden="{{false}}">
+        隐藏
+    </view>
+    <view hidden="{{true}}" style="display: flex;">
+        隐藏
+    </view>    
+</view>
+    
+  
+  
+  
+  
+  
+  
+  
+  
